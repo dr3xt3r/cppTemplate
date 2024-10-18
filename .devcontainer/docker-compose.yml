@@ -1,0 +1,23 @@
+services:
+  cpp-dev:
+    image: c-cpp-dev-image
+    container_name: c-cpp-dev-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    network_mode: bridge
+
+    # Enable these settings to allocate a pseudo-TTY and keep STDIN open
+    tty: true
+    stdin_open: true
+
+    # defined here instead of devcontainer.json, must be in sync with Dockerfile
+    user: dev_user
+
+    # required for ptrace-based debugger like C++, Go, and Rust.
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined

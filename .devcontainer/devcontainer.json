@@ -1,0 +1,24 @@
+{
+    "name": "Minimal C/C++ Development Environment",
+    
+    "dockerComposeFile": "docker-compose.yml",
+
+    "service": "cpp-dev",
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+                },
+            "extensions": [
+                "mhutchie.git-graph",
+                "ms-vscode.cpptools-extension-pack",
+                "llvm-vs-code-extensions.vscode-clangd"
+            ]
+        }
+    },
+    "workspaceFolder": "/workspace",
+	
+    "postCreateCommand": "whoami && chmod +x /workspace/scripts/*.sh"
+  }
+  

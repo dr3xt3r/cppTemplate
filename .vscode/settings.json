@@ -1,0 +1,55 @@
+{
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.options.advanced": {
+        "build": {
+            "statusBarVisibility": "inherit",
+            "inheritDefault": "visible"
+        },
+        "launch": {
+            "statusBarVisibility": "inherit",
+            "inheritDefault": "visible"
+        },
+        "debug": {
+            "statusBarVisibility": "inherit",
+            "inheritDefault": "visible"
+        },
+        "kit": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+        "cpack": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+        "ctest": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+        "workflowPreset": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+        "workflow": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+        "testPreset": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+        "packagePreset": {
+            "statusBarVisibility": "hidden",
+            "inheritDefault": "visible"
+        },
+    },
+    "cmake.allowCommentsInPresetsFile": true,
+    "cmake.deleteBuildDirOnCleanConfigure": true,
+    "cmake.showOptionsMovedNotification": false,
+
+    "C_Cpp.intelliSenseEngine": "disabled",
+    
+    "clangd.checkUpdates": true,
+    "clangd.inactiveRegions.useBackgroundHighlight": true,
+    "clangd.onConfigChanged": "restart",
+    "editor.detectIndentation": false,
+}

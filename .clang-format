@@ -1,0 +1,81 @@
+# Basic .clang-format configuration
+
+---
+Language:        Cpp            # Specifies that the language is C++
+BasedOnStyle:    Google         # Base style is set to Google's style guide
+
+# General style settings
+AccessModifierOffset: -2        # Indent access modifiers (e.g., public, private) by 2 spaces
+AlignAfterOpenBracket: AlwaysBreak   # Align parameters after open brackets
+AlignConsecutiveAssignments: true  # Align assignment statements vertically if consecutive
+AlignConsecutiveDeclarations: true # Align variable declarations vertically if consecutive
+AlignEscapedNewlines: Left      # Align escaped newlines to the left
+AlignOperands: true             # Align operands for better readability
+AlignTrailingComments: true     # Align trailing comments on the same column
+AlwaysBreakAfterDefinitionReturnType: None # Keep function return types on the same line
+AlwaysBreakBeforeMultilineStrings: false   # Don't break before multiline strings
+BinPackArguments: false          # Don't bin-pack (place) multiple function arguments on one line
+BinPackParameters: false         # Same as above for parameters
+BreakBeforeBinaryOperators: All  # Place binary operators at the start of a new line
+BreakConstructorInitializersBeforeComma: false # Don't break before commas in constructor initializers
+ColumnLimit: 100                 # Set maximum line length to 100 characters
+ConstructorInitializerIndentWidth: 2 # Indent constructor initializers by 2 spaces
+ContinuationIndentWidth: 2       # Indent continued lines by 2 spaces
+
+IndentWidth: 4                   # Use 4 spaces for indentation
+TabWidth: 4                      # Set tab width to 4 spaces
+UseTab: Always                   # Don't use tabs, use spaces instead
+IndentCaseLabels: true           # Indent case labels within switch statements
+
+# Naming rules
+NamespaceIndentation: All        # Indent all contents inside namespaces
+QualifierAlignment: Left         # Align qualifiers (e.g., const) to the left
+
+# Formatting of pointers and references
+DerivePointerAlignment: false    # Disable deriving pointer alignment automatically
+PointerAlignment: Left           # Place the asterisk (*) next to the type, not the variable name
+SpaceAfterTemplateKeyword: true  # Add space after the template keyword
+SpacesInAngles: false            # Don't add spaces inside angle brackets (<>)
+SpacesInCStyleCastParentheses: false # Don't add spaces inside parentheses of C-style casts
+SpaceBeforeSquareBrackets: false # No space before square brackets in array subscripts
+SpacesInParentheses: false       # Don't add spaces inside parentheses
+
+# Comment and documentation formatting
+ReflowComments: true             # Automatically reflow long comments
+
+# Include sorting
+SortIncludes: true               # Sort include statements alphabetically
+IncludeBlocks: Preserve          # Preserve blank lines between include blocks
+IncludeCategories:               # Custom sorting for different include categories
+  - Regex:           '^<.*\.h>'  # Standard library includes (angle brackets) come first
+    Priority:        1
+  - Regex:           '^".*\.h"'  # Project-specific includes (quoted) come next
+    Priority:        2
+  - Regex:           '.*'        # Other includes come last
+    Priority:        3
+
+# Custom brace wrapping style
+BreakBeforeBraces: Custom        # Specify custom brace wrapping rules (as outlined above)
+BraceWrapping:
+  AfterClass: true               # Place opening brace of class on the next line
+  AfterControlStatement: true    # Same for control statements (if, while, etc.)
+  AfterEnum: true                # Same for enums
+  AfterFunction: true            # Same for functions
+  AfterNamespace: false          # Don't break after namespace
+  AfterStruct: true              # Same as for classes, apply to structs
+  AfterUnion: true               # Same as for unions
+  BeforeCatch: true              # Break before catch blocks
+  BeforeElse: true               # Break before else statements
+  IndentBraces: false            # Do not indent braces (this is a style preference)
+
+# Control statement formatting
+AllowShortFunctionsOnASingleLine: Inline # Disallow short functions on a single line
+AllowShortIfStatementsOnASingleLine: false # Disallow single-line if-statements
+AllowShortLoopsOnASingleLine: false # Disallow single-line loops
+
+# Whitespace control
+SpaceBeforeAssignmentOperators: true  # Add space before assignment operators
+SpaceBeforeParens: ControlStatements  # Add space before parentheses in control statements
+
+# Disable specific formatting rules (customize for your project)
+DisableFormat: false              # Allow clang-format to format everything by default

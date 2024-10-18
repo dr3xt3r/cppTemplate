@@ -1,0 +1,80 @@
+# .clang-tidy
+
+# For changes to take effect, press F1 and run 'clangd: Restart language'
+
+# Disable all checks first, then enable selected groups, afterwards disable selected checks
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  cppcoreguidelines-*,
+  clang-analyzer-*,
+  performance-*,
+  readability-*,
+  modernize-*,
+  misc-*,
+  portability-*,
+  google-*,
+  hicpp-*,
+  llvm-*,
+  -modernize-use-trailing-return-type,
+  -readability-magic-numbers,
+  -cppcoreguidelines-avoid-magic-numbers
+
+# Treat all warnings as errors
+WarningsAsErrors: '-*'
+
+ # Apply checks to all header files
+HeaderFilterRegex: '.*'
+
+CheckOptions:
+  # Set minimum type name length for 'auto' type deduction
+  - key:             modernize-use-auto.MinTypeNameLength
+    value:           '5'
+
+  # Enforce variable naming conventions
+  - key:             readability-identifier-naming.VariableCase
+    value:           lower_case
+
+  # Enforce function naming conventions
+  - key:             readability-identifier-naming.FunctionCase
+    value:           CamelCase
+
+  # Enforce class naming conventions
+  - key:             readability-identifier-naming.ClassCase
+    value:           CamelCase
+
+  # Prefix for private member variables
+  - key:             readability-identifier-naming.PrivateMemberPrefix
+    value:           m_
+
+  # Specify macros that should be treated as null pointers
+  - key:             modernize-use-nullptr.NullMacros
+    value:           NULL
+
+  # Warn on all implicit conversions from array to pointer
+  - key:             cppcoreguidelines-pro-bounds-array-to-pointer-decay.WarnOnAllImplicitConversions
+    value:           true
+
+  # Disallow unnecessary value parameters except for specified types
+  - key:             performance-unnecessary-value-param.AllowedTypes
+    value:           ''
+
+  # Define magic numbers that are ignored in checks
+  - key:             readability-magic-numbers.IgnoredValues
+    value:           '0,1,-1,10'
+
+  # Define floating-point magic numbers that are ignored
+  - key:             readability-magic-numbers.IgnoredFloatingPointValues
+    value:           '0.0,1.0'
+
+  # Enable padding performance checks
+  - key:             clang-analyzer-optin.performance.Padding
+    value:           true
+
+  # Specify max size (in bytes) of elements that will be copied when converting a loop
+  - key:             modernize-loop-convert.MaxCopySize
+    value:           '16'
+
+# Add extra arguments - c++ standard, includes, warnings, etc.
+ExtraArgs: ['-std=c++20', '-I/include', '-Wall', '-Wextra', '-Wpedantic']

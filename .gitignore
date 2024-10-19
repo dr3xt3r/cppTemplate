@@ -39,3 +39,6 @@ bin/*
 
 # .cache directory
 .cache/*
+
+# cppcheck directory
+cppcheck/*

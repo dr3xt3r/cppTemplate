@@ -11,7 +11,7 @@
                 "CMAKE_C_COMPILER": "/usr/bin/gcc",
                 "CMAKE_CXX_COMPILER": "/usr/bin/g++",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
-                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/bin",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin",
                 "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/build/lib",
                 "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/build/archives",
                 "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic"

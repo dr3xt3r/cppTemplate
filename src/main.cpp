@@ -10,8 +10,3 @@ int main()
 
 	return 0;
 }
-
-void fun_void()
-{
-	std::cout << "fun_void" << std::endl;
-}

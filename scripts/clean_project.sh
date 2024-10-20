@@ -28,5 +28,8 @@ clear_folder ".cache"
 # Clear cppcheck directory
 clear_folder "cppcheck"
 
+# Clear report directory
+clear_folder "report"
+
 # Optionally, clear any additional folders here
 echo "All folders cleaned!"

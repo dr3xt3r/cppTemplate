@@ -42,3 +42,6 @@ bin/*
 
 # cppcheck directory
 cppcheck/*
+
+# report directory
+report/*

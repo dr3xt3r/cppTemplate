@@ -3,6 +3,7 @@
 	"tasks": [
 		{
 			"label": "Clean Generated Files",
+            "detail": "Clean all generated files",
 			"type": "shell",
 			"command": "${workspaceFolder}/scripts/clean_project.sh",
 			"group": {
@@ -16,7 +17,8 @@
 			"problemMatcher": []
 		},
         {
-            "label": "Cppcheck - Run in terminal",
+            "label": "Cppcheck - terminal",
+            "detail": "Run cppcheck and output to terminal",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/cppcheck.sh output_to_terminal",
             "problemMatcher": [],
@@ -28,7 +30,8 @@
             }
         },
         {
-            "label": "Cppcheck - Run and generate HTML report",
+            "label": "Cppcheck - log",
+            "detail": "Run cppcheck and generate HTML log",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/cppcheck.sh output_to_file",
             "problemMatcher": [],
@@ -38,7 +41,19 @@
               "focus": false,
               "panel": "shared"
             }
+        },
+        {
+            "label": "Valgrind",
+            "detail": "Run valgrind with output in terminal and log file",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/valgrind.sh ${command:cmake.launchTargetPath}",
+            "problemMatcher": [],
+            "presentation": {
+              "echo": true,
+              "reveal": "always",
+              "focus": false,
+              "panel": "shared"
+            }
         }
-
 	]
 }

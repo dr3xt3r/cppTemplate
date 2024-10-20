@@ -4,7 +4,7 @@
 CPPCHECK_DIR="cppcheck/build"
 REPORT_DIR="cppcheck/cppcheck_report"
 HTML_REPORT_DIR="cppcheck/html_report"
-PROJECT_REPORT_DIR="report"
+PROJECT_LOG_DIR="logs"
 
 # file names
 CPPCHECK_CHECKERS_REPORT="$REPORT_DIR/cppcheck_checkers_report"
@@ -16,7 +16,7 @@ CPPCHECK_ANALYSIS_REPORT_HTML="$HTML_REPORT_DIR/index.html"
 mkdir -p "$CPPCHECK_DIR"
 mkdir -p "$REPORT_DIR"
 mkdir -p "$HTML_REPORT_DIR"
-mkdir -p "$PROJECT_REPORT_DIR"
+mkdir -p "$PROJECT_LOG_DIR"
 
 # Check the argument passed
 if [ "$1" == "output_to_file" ]; then
@@ -36,9 +36,8 @@ if [ "$1" == "output_to_file" ]; then
     # Generate HTML report from the XML report
     cppcheck-htmlreport --file="$CPPCHECK_ANALYSIS_REPORT_XML" --report-dir="$HTML_REPORT_DIR"
 
-    cp "$CPPCHECK_ANALYSIS_REPORT_HTML" "$PROJECT_REPORT_DIR"/cppcheck_report.html
-    cp "$CPPCHECK_CHECKERS_REPORT" "$PROJECT_REPORT_DIR"/cppcheck_checkers_report.txt
-
+    cp "$CPPCHECK_ANALYSIS_REPORT_HTML" "$PROJECT_LOG_DIR"/cppcheck_report.html
+    cp "$CPPCHECK_CHECKERS_REPORT" "$PROJECT_LOG_DIR"
 
 elif [ "$1" == "output_to_terminal" ]; then
     echo "Running Cppcheck with terminal output"

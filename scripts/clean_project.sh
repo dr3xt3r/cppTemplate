@@ -15,7 +15,6 @@ clear_folder() {
   fi
 }
 
-
 # Clear build directory
 clear_folder "build"
 
@@ -29,7 +28,7 @@ clear_folder ".cache"
 clear_folder "cppcheck"
 
 # Clear report directory
-clear_folder "report"
+clear_folder "logs"
 
 # Optionally, clear any additional folders here
 echo "All folders cleaned!"

@@ -18,6 +18,9 @@ include_directories(src/include)
 # Collect all source files in the src directory
 file(GLOB_RECURSE SOURCES "src/src/*.cpp")
 
+# Include the sanitizer configuration
+include(cmake/setSanitizers.cmake)
+
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 

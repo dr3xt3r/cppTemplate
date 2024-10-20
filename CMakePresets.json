@@ -20,16 +20,49 @@
         {
             "name": "debug_config",
             "displayName": "Debug configuration",
-            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "description": "Using compiler: CXX = /usr/bin/g++",
             "inherits": ["default"],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
+            "name": "debug_asan_ubsan",
+            "displayName": "Debug configuration - ASAN(LSAN disabled), UBSAN",
+            "description": "Debug with Address Sanitizer and Undedefined Behavior Sanitizer",
+            "inherits": ["debug_config"],
+            "cacheVariables": {
+                "SANITIZERS": "address;undefined"
+            },
+            "environment": {
+                "ASAN_OPTIONS": "detect_leaks=0"
+            }
+        },
+        {
+            "name": "debug_asan_lsan_ubsan",
+            "displayName": "Debug configuration - ASAN(LSAN enabled), UBSAN",
+            "description": "Debug with Address Sanitizer, Undedefined Behavior Sanitizer and Leak Sanitizer(integrated in ASAN)",
+            "inherits": ["debug_config"],
+            "cacheVariables": {
+                "SANITIZERS": "address;undefined"
+            },
+            "environment": {
+                "ASAN_OPTIONS": "detect_leaks=1"
+            }
+        },
+        {
+            "name": "debug_tsan",
+            "displayName": "Debug configuration - TSAN",
+            "description": "Debug with Thread Sanitizer",
+            "inherits": ["debug_config"],
+            "cacheVariables": {
+                "SANITIZERS": "thread"
+            }
+        },
+        {
             "name": "release_config",
             "displayName": "Release configuration",
-            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "description": "Using compiler: CXX = /usr/bin/g++",
             "inherits": ["default"],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -50,6 +83,24 @@
             "description": "Cleans the project and builds using the Debug configuration",
             "inherits": ["build_debug"],
             "cleanFirst": true
+        },
+        {
+            "name": "build_asan_ubsan",
+            "displayName": "Build Debug - ASAN(LSAN disabled), UBSAN",
+            "description": "Builds the project using the Debug configuration with ASAN and UBSAN",
+            "configurePreset": "debug_asan_ubsan"
+        },
+        {
+            "name": "build_asan_lsan_ubsan",
+            "displayName": "Build Debug - ASAN(LSAN enabled), UBSAN",
+            "description": "Builds the project using the Debug configuration with ASAN,LSAN and UBSAN",
+            "configurePreset": "debug_asan_lsan_ubsan"
+        },
+        {
+            "name": "build_tsan",
+            "displayName": "Build Debug - TSAN",
+            "description": "Cleans the project and rebuild using the Debug configuration with ASAN,LSAN and UBSAN",
+            "configurePreset": "debug_tsan"
         },
         {
             "name": "build_release",

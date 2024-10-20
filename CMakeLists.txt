@@ -13,10 +13,10 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED YES)
 
 # Include directories
-include_directories(include)
+include_directories(src/include)
 
 # Collect all source files in the src directory
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/src/*.cpp")
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})

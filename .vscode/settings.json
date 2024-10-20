@@ -44,9 +44,12 @@
     },
     "cmake.allowCommentsInPresetsFile": true,
     "cmake.deleteBuildDirOnCleanConfigure": true,
-    "cmake.showOptionsMovedNotification": false,
 
     "C_Cpp.intelliSenseEngine": "disabled",
+
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
     
     "clangd.checkUpdates": true,
     "clangd.inactiveRegions.useBackgroundHighlight": true,

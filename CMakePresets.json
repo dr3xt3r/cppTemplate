@@ -14,7 +14,11 @@
                 "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin",
                 "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/bin/lib",
                 "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/bin/archives",
-                "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic"
+                "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic",
+                "SANITIZERS": ""    // explicitly clear the sanitizers variable
+            },
+            "environment": {
+                "ASAN_OPTIONS": "" // explicitly clear the ASAN_OPTIONS variable
             }
         },
         {
@@ -35,7 +39,7 @@
                 "SANITIZERS": "address;undefined"
             },
             "environment": {
-                "ASAN_OPTIONS": "detect_leaks=0"
+                "ASAN_OPTIONS": "detect_leaks=0"    // disable LSAN
             }
         },
         {
@@ -47,7 +51,7 @@
                 "SANITIZERS": "address;undefined"
             },
             "environment": {
-                "ASAN_OPTIONS": "detect_leaks=1"
+                "ASAN_OPTIONS": "detect_leaks=1"    // enable LSAN
             }
         },
         {

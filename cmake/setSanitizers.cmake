@@ -3,27 +3,21 @@
 # Initialize the sanitizer flags variable
 set(SANITIZER_FLAGS "")
 
-# Add sanitizer flags if specified
-if (SANITIZERS MATCHES "address")
+# Iterate over the list of sanitizers and add the flags to the SANITIZER_FLAGS variable
+foreach(SANITIZER ${SANITIZERS})
+if(${SANITIZER} STREQUAL "address")
     set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=address")
-endif()
-
-if (SANITIZERS MATCHES "thread")
+elseif(${SANITIZER} STREQUAL "undefined")
+    set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=undefined")
+elseif(${SANITIZER} STREQUAL "thread")
     set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=thread")
 endif()
-
-if (SANITIZERS MATCHES "undefined")
-    set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=undefined")
-endif()
+endforeach()
 
 # Only with Clang, GCC does not support memory sanitizer
 #if (SANITIZERS MATCHES "memory")
 #    set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=memory")
 #endif()
-
-if (LSAN_ENABLED)
-    set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -DASAN_OPTIONS=detect_leaks=1")
-endif()
 
 # Apply the sanitizer flags if they are defined
 if (SANITIZER_FLAGS)

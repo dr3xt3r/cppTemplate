@@ -5,20 +5,22 @@
             "name": "(gdb) Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${command:cmake.launchTargetPath}", // this causes cmake build to be triggered on every debug
+            "program": "${command:cmake.launchTargetPath}", // this results in cmake build to be triggered on every debug
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false, // must be false, otherwise debugger gets stuck in endless loop
             "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /bin/gdb -q --interpreter=mi",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ],
+            ]
         }
     ]
   }

@@ -15,11 +15,11 @@ set(CMAKE_C_STANDARD_REQUIRED YES)
 # Include directories
 include_directories(src/include)
 
-# Collect all source files in the src directory
-file(GLOB_RECURSE SOURCES "src/src/*.cpp")
-
 # Include the sanitizer configuration
 include(cmake/setSanitizers.cmake)
+
+# Collect all source files in the src directory
+file(GLOB_RECURSE SOURCES "src/src/*.cpp")
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})

@@ -22,7 +22,7 @@
             "inheritDefault": "visible"
         },
         "ctest": {
-            "statusBarVisibility": "hidden",
+            "statusBarVisibility": "inherit",
             "inheritDefault": "visible"
         },
         "workflowPreset": {
@@ -34,7 +34,7 @@
             "inheritDefault": "visible"
         },
         "testPreset": {
-            "statusBarVisibility": "hidden",
+            "statusBarVisibility": "inherit",
             "inheritDefault": "visible"
         },
         "packagePreset": {
@@ -56,7 +56,10 @@
     "clangd.onConfigChanged": "restart",
     
     "editor.detectIndentation": false,
+    "editor.inlayHints.maximumLength": 0,
 
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.rightClickBehavior": "default",
+
+
 }

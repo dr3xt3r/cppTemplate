@@ -103,7 +103,7 @@
         {
             "name": "build_tsan",
             "displayName": "Build Debug - TSAN",
-            "description": "Cleans the project and rebuild using the Debug configuration with ASAN,LSAN and UBSAN",
+            "description": "Builds the project using the Debug configuration TSAN",
             "configurePreset": "debug_tsan"
         },
         {
@@ -119,6 +119,55 @@
             "description": "Cleans the project and builds using the Release configuration",
             "inherits": "build_release",
             "cleanFirst": true
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "test_default",
+            "execution": {
+                "stopOnFailure": false
+            },
+            "hidden": true
+        },
+        {
+            "name": "test_debug",
+            "displayName": "Test Debug",
+            "configurePreset": "debug_config",
+            "description": "Runs tests using the Debug configuration",
+            "inherits": "test_default",
+            "inheritConfigureEnvironment": true
+        },
+        {
+            "name": "test_asan_ubsan",
+            "displayName": "Test Debug - ASAN(LSAN disabled), UBSAN",
+            "configurePreset": "debug_asan_ubsan",
+            "description": "Runs tests using the Debug configuration with ASAN and UBSAN",
+            "inherits": "test_default",
+            "inheritConfigureEnvironment": true
+        },
+        {
+            "name": "test_asan_lsan_ubsan",
+            "displayName": "Test Debug - ASAN(LSAN enabled), UBSAN",
+            "configurePreset": "debug_asan_lsan_ubsan",
+            "description": "Runs tests using the Debug configuration with ASAN, LSAN, and UBSAN",
+            "inherits": "test_default",
+            "inheritConfigureEnvironment": true
+        },
+        {
+            "name": "test_tsan",
+            "displayName": "Test Debug - TSAN",
+            "configurePreset": "debug_tsan",
+            "description": "Runs tests using the Debug configuration with TSAN",
+            "inherits": "test_default",
+            "inheritConfigureEnvironment": true
+        },
+        {
+            "name": "test_release",
+            "displayName": "Test Release",
+            "configurePreset": "release_config",
+            "description": "Runs tests using the Release configuration",
+            "inherits": "test_default",
+            "inheritConfigureEnvironment": true
         }
     ]
 }

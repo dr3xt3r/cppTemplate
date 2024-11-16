@@ -11,8 +11,10 @@
 			  "isDefault": false
 			},
 			"presentation": {
-			  "reveal": "always",
-			  "panel": "shared"
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
 			},
 			"problemMatcher": []
 		},
@@ -21,39 +23,103 @@
             "detail": "Run cppcheck and output to terminal",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/cppcheck.sh output_to_terminal",
-            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": false
+              },
             "presentation": {
               "echo": true,
               "reveal": "always",
               "focus": false,
               "panel": "shared"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Cppcheck - log",
             "detail": "Run cppcheck and generate HTML log",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/cppcheck.sh output_to_file",
-            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": false
+              },
             "presentation": {
               "echo": true,
               "reveal": "always",
               "focus": false,
               "panel": "shared"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Valgrind",
             "detail": "Run valgrind with output in terminal and log file",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/valgrind.sh ${command:cmake.launchTargetPath}",
-            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": false
+              },
             "presentation": {
               "echo": true,
               "reveal": "always",
               "focus": false,
               "panel": "shared"
-            }
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "CTest -VV",
+            "detail": "Runs CTest with more verbose output.",
+            "type": "shell",
+            "command": "ctest",
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+                "env": {
+                    "GTEST_COLOR": "1"
+                }
+            },
+            "args": [
+                "-VV",
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+              },
+            "problemMatcher": []
+        },
+        {
+            "label": "CTest --output-on-failure",
+            "detail": "Runs CTest with more verbose output only on failed tests.",
+            "type": "shell",
+            "command": "ctest",
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+                "env": {
+                    "GTEST_COLOR": "1"
+                }
+            },
+            "args": [
+                "--output-on-failure",
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+              },
+            "problemMatcher": []
         }
 	]
 }

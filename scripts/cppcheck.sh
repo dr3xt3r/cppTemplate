@@ -31,7 +31,8 @@ if [ "$1" == "output_to_file" ]; then
              --platform=unix64 \
              --checkers-report="$CPPCHECK_CHECKERS_REPORT" \
              --xml \
-             --output-file="$CPPCHECK_ANALYSIS_REPORT_XML"
+             --output-file="$CPPCHECK_ANALYSIS_REPORT_XML" \ 
+            -i external   
 
     # Generate HTML report from the XML report
     cppcheck-htmlreport --file="$CPPCHECK_ANALYSIS_REPORT_XML" --report-dir="$HTML_REPORT_DIR"
@@ -48,7 +49,8 @@ elif [ "$1" == "output_to_terminal" ]; then
              --cppcheck-build-dir="$CPPCHECK_DIR" \
              --project=build/compile_commands.json \
              --platform=unix64 \
-             --checkers-report="$CPPCHECK_CHECKERS_REPORT"
+             --checkers-report="$CPPCHECK_CHECKERS_REPORT" \
+             -i external
 
 else
     echo "Invalid argument. Please use 'generate_report' or 'print_to_terminal'."

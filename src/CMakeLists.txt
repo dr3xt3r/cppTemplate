@@ -1,7 +1,7 @@
 # src/CMakeLists.txt
 
 # Collect all source files in the src directory
-file(GLOB_RECURSE SOURCES "*.cpp")
+file(GLOB_RECURSE SOURCES "*.cpp" "*.c")
 
 # Executable
 add_executable(${PROJECT_NAME} ${SOURCES})

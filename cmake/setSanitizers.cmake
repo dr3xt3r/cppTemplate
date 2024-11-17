@@ -22,4 +22,5 @@ endforeach()
 # Apply the sanitizer flags if they are defined
 if (SANITIZER_FLAGS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS} -fno-omit-frame-pointer")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS} -fno-omit-frame-pointer")
 endif()

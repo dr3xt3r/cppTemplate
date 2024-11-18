@@ -15,6 +15,7 @@
                 "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/bin/lib",
                 "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/bin/archives",
                 "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic",
+                "CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic",
                 "SANITIZERS": ""    // explicitly clear the sanitizers variable
             },
             "environment": {
@@ -24,7 +25,7 @@
         {
             "name": "debug_config",
             "displayName": "Debug configuration",
-            "description": "Using compiler: CXX = /usr/bin/g++",
+            "description": "Using compiler: CXX = /usr/bin/g++  C = /usr/bin/gcc",
             "inherits": ["default"],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -105,7 +106,7 @@
             "displayName": "Build Debug - TSAN",
             "description": "Builds the project using the Debug configuration TSAN",
             "configurePreset": "debug_tsan"
-        },
+        },        
         {
             "name": "build_release",
             "displayName": "Build Release",

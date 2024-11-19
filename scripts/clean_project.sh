@@ -32,3 +32,16 @@ clear_folder "logs"
 
 # Optionally, clear any additional folders here
 echo "All folders cleaned!"
+
+# Change to build directory and run cmake
+    echo
+if [ -d "build" ]; then
+    cd build
+    echo "Switched to $(pwd)" 
+    echo "Perform a fresh configuration of the CMake build tree..."
+    echo  
+    cmake --fresh ..
+else
+  echo "Error: 'build' directory does not exist"
+  exit 1
+fi

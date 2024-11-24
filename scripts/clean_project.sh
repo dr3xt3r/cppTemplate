@@ -21,9 +21,6 @@ clear_folder "bin"
 # Clear .cache directory
 clear_folder ".cache"
 
-# Clear cppcheck directory
-clear_folder "cppcheck"
-
 # Clear report directory
 clear_folder "logs"
 

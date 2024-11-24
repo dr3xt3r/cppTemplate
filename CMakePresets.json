@@ -67,20 +67,30 @@
         {
             "name": "release_config",
             "displayName": "Release configuration",
-            "description": "Using compiler: CXX = /usr/bin/g++",
+            "description": "Using compiler: CXX = /usr/bin/g++  C = /usr/bin/gcc",
             "inherits": ["default"],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
+        },
+        {
+            "name": "coverage_config",
+            "displayName": "Coverage configuration",
+            "description": "Using compiler: CXX = /usr/bin/g++  C = /usr/bin/gcc",
+            "inherits": ["debug_config"],
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic --coverage",
+                "CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic --coverage"
+            }
         }
+
     ],
     "buildPresets": [
         {
             "name": "build_debug",
             "displayName": "Build Debug",
             "configurePreset": "debug_config",
-            "description": "Builds the project using the Debug configuration",
-            "verbose": false
+            "description": "Builds the project using the Debug configuration"
         },
         {
             "name": "rebuild_debug",
@@ -111,8 +121,7 @@
             "name": "build_release",
             "displayName": "Build Release",
             "configurePreset": "release_config",
-            "description": "Builds the project using the Release configuration",
-            "verbose": false
+            "description": "Builds the project using the Release configuration"
         },
         {
             "name": "rebuild_release",
@@ -120,6 +129,12 @@
             "description": "Cleans the project and builds using the Release configuration",
             "inherits": "build_release",
             "cleanFirst": true
+        },
+        {
+            "name": "build_coverage",
+            "displayName": "Build Coverage",
+            "configurePreset": "coverage_config",
+            "description": "Builds the project using the Coverage configuration"
         }
     ],
     "testPresets": [
@@ -167,6 +182,14 @@
             "displayName": "Test Release",
             "configurePreset": "release_config",
             "description": "Runs tests using the Release configuration",
+            "inherits": "test_default",
+            "inheritConfigureEnvironment": true
+        },
+        {
+            "name": "test_coverage",
+            "displayName": "Test Coverage",
+            "configurePreset": "coverage_config",
+            "description": "Runs tests using the Coverage configuration",
             "inherits": "test_default",
             "inheritConfigureEnvironment": true
         }

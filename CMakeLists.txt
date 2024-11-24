@@ -17,6 +17,7 @@ enable_testing()
 
 # Include the sanitizer configuration
 include(cmake/setSanitizers.cmake)
+include(cmake/runCoverage.cmake)
 
 # Add the src directory
 add_subdirectory(src)

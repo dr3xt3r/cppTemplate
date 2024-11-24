@@ -24,7 +24,6 @@ ctest --output-on-failure --test-dir "$BUILD_DIR"
 lcov --capture --directory "$BUILD_DIR" --output-file "$REPORT_FILE_NAME" \
      --exclude '/usr/*' --exclude "$EXTERNAL_DIR" -exclude "$TESTS_DIR" \
      --demangle-cpp  --branch-coverage
-
 # Stop if lcov fails
 if [[ $? -ne 0 ]]; then
     echo -e "\nERROR: lcov capture FAILED.\n"
@@ -34,7 +33,6 @@ fi
 # Generate the HTML report
 genhtml "$REPORT_FILE_NAME"  --output-directory "$REPORT_SRC_DIR" \
         --demangle-cpp --branch-coverage --function-coverage --no-prefix 
-
 # Stop if genhtml fails
 if [[ $? -ne 0 ]]; then
     echo -e "\nERROR: genhtml report FAILED.\n"
@@ -49,6 +47,10 @@ fi
 
 # Create destination directory if it does not exist
 mkdir -p "$REPORT_DST_DIR"
+if [[ $? -ne 0 ]]; then
+    echo -e "\nERROR: Failed to create destination directory $REPORT_DST_DIR\n"
+    exit 1
+fi
 
 # Copy the report to the destination directory
 if cp -r "$REPORT_SRC_DIR" "$REPORT_DST_DIR"; then

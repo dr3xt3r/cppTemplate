@@ -11,6 +11,11 @@ PROJECT_EXECUTABLE="$1"
 
 # Create directories for Valgrind report
 mkdir -p "$PROJECT_LOG_DIR"
+# Stop if directory creation fails
+if [[ $? -ne 0 ]]; then
+    echo -e "\nERROR: Failed to create directory $PROJECT_LOG_DIR\n"
+    exit 1
+fi
 
 # Run Valgrind
 valgrind --tool=memcheck \
@@ -21,3 +26,9 @@ valgrind --tool=memcheck \
          --show-error-list=yes \
          "$PROJECT_EXECUTABLE" \
          2>&1 | tee "$VALGRIND_REPORT"
+
+# Stop if Valgrind fails         
+if [[ $? -ne 0 ]]; then
+    echo -e "\nERROR: Valgrind FAILED.\n"
+    exit 1
+fi

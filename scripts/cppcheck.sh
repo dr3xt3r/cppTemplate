@@ -19,12 +19,12 @@ CPPCHECK_ANALYSIS_REPORT_HTML="$CPPCHECK_REPORT_HTML_DIR/index.html"
 CPPCHECK_ANALYSIS_REPORT_HTML_DST="$PROJECT_LOG_DIR/cppcheck_report.html"
 COMPILE_COMMANDS_JSON="$PROJECT_BUILD_DIR/compile_commands.json"
 
-# Remove previous reports and build files
+# Remove previous reports and build files. Stop script if it fails
 rm -rf "$CPPCHECK_DIR/*" || { echo "Failed to remove $CPPCHECK_DIR/*"; exit 1; }
 rm -f "$CPPCHECK_CHECKERS_REPORT_DST" || { echo "Failed to remove $CPPCHECK_CHECKERS_REPORT_DST"; exit 1; }
 rm -f "$CPPCHECK_ANALYSIS_REPORT_HTML_DST" || { echo "Failed to remove $CPPCHECK_ANALYSIS_REPORT_HTML_DST"; exit 1; }
 
-# Create directories with checks
+# Create directories, stop script if it fails
 create_dir() {
     local dir=$1
     mkdir -p "$dir" || { echo "Failed to create: $dir"; exit 1; }
@@ -38,7 +38,7 @@ create_dir "$PROJECT_LOG_DIR"
 # Check the argument passed
 if [ "$1" == "output_to_file" ]; then
     echo "Running Cppcheck with HTML file output"
-
+    # Run Cppcheck with XML output, stop script if it fails
     cppcheck --enable=all \
              --inconclusive \
              --suppress=missingIncludeSystem \
@@ -56,20 +56,21 @@ if [ "$1" == "output_to_file" ]; then
         exit 1
     fi         
 
-    # Generate HTML report from the XML report
+    # Generate HTML report from the XML report, stop script if it fails
     cppcheck-htmlreport --file="$CPPCHECK_ANALYSIS_REPORT_XML" --report-dir="$CPPCHECK_REPORT_HTML_DIR"
-    
     if [ $? -ne 0 ]; then
         echo "Cppcheck HTML report generation failed."
         exit 1
     fi
 
+    # Copy the HTML report to the destination directory, stop script if it fails
     cp "$CPPCHECK_ANALYSIS_REPORT_HTML" "$CPPCHECK_ANALYSIS_REPORT_HTML_DST"
     if [ $? -ne 0 ]; then
         echo "Failed to copy HTML report to destination."
         exit 1
     fi
 
+    # Copy the checkers report to the destination directory, stop script if it fails
     cp "$CPPCHECK_CHECKERS_REPORT" "$CPPCHECK_CHECKERS_REPORT_DST"
     if [ $? -ne 0 ]; then
         echo "Failed to copy checkers report to destination."
@@ -78,6 +79,7 @@ if [ "$1" == "output_to_file" ]; then
 
 elif [ "$1" == "output_to_terminal" ]; then
     echo "Running Cppcheck with terminal output"
+    # Run Cppcheck with terminal output, stop script if it fails
     cppcheck --enable=all \
              --inconclusive \
              --suppress=missingIncludeSystem \

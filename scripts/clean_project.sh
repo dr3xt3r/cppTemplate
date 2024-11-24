@@ -15,9 +15,6 @@ clear_folder() {
   fi
 }
 
-# Clear build directory
-clear_folder "build"
-
 # Clear bin directory
 clear_folder "bin"
 
@@ -34,13 +31,12 @@ clear_folder "logs"
 echo "All folders cleaned!"
 
 # Change to build directory and run cmake
-    echo
 if [ -d "build" ]; then
     cd build
-    echo "Switched to $(pwd)" 
-    echo "Perform a fresh configuration of the CMake build tree..."
-    echo  
+    echo -e "\nSwitched to $(pwd)" 
+    echo -e "Perform a fresh configuration of the CMake build tree...\n"
     cmake --fresh ..
+    echo -e "\nCMake reconfiguration complete, optionally consider running command 'CMake: Delete Cache and Reconfigure' for in depth reconfiguration.\n" 
 else
   echo "Error: 'build' directory does not exist"
   exit 1

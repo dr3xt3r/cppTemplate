@@ -1,7 +1,7 @@
 services:
   cpp-dev:
-    image: c-cpp-dev-image
-    container_name: c-cpp-dev-container
+    image: cpp-dev-image
+    container_name: cpp-dev-container
     build:
       context: .
       dockerfile: Dockerfile

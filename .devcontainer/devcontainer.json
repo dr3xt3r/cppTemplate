@@ -13,7 +13,9 @@
             "extensions": [
                 "mhutchie.git-graph",
                 "ms-vscode.cpptools-extension-pack",
-                "llvm-vs-code-extensions.vscode-clangd"
+                "llvm-vs-code-extensions.vscode-clangd",
+                "GitHub.copilot",
+                "GitHub.copilot-chat"
             ]
         }
     },

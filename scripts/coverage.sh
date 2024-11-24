@@ -47,6 +47,9 @@ if [[ ! -d "$REPORT_SRC_DIR" ]]; then
     exit 1
 fi
 
+# Create destination directory if it does not exist
+mkdir -p "$REPORT_DST_DIR"
+
 # Copy the report to the destination directory
 if cp -r "$REPORT_SRC_DIR" "$REPORT_DST_DIR"; then
     echo -e "\nCoverage report copied successfully to $REPORT_DST_DIR\n"

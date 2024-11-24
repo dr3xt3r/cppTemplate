@@ -1,22 +1,39 @@
 #!/bin/bash
 
 # directory paths
-CPPCHECK_DIR="cppcheck/build"
-REPORT_DIR="cppcheck/cppcheck_report"
-HTML_REPORT_DIR="cppcheck/html_report"
-PROJECT_LOG_DIR="logs"
+PROJECT_ROOT_DIR="/workspace"
+PROJECT_BUILD_DIR="$PROJECT_ROOT_DIR/build"
+PROJECT_LOG_DIR="$PROJECT_ROOT_DIR/logs"
+PROJECT_EXTERNAL_DIR="$PROJECT_ROOT_DIR/external"
+
+CPPCHECK_DIR="$PROJECT_BUILD_DIR/cppcheck"
+CPPCHECK_BUILD_DIR="$CPPCHECK_DIR/build"
+CPPCHECK_REPORT_DIR="$CPPCHECK_DIR/cppcheck_report"
+CPPCHECK_REPORT_HTML_DIR="$CPPCHECK_DIR/cppcheck_report_html"
 
 # file names
-CPPCHECK_CHECKERS_REPORT="$REPORT_DIR/cppcheck_checkers_report"
-CPPCHECK_ANALYSIS_REPORT_XML="$REPORT_DIR/cppcheck_analysis_report.xml"
-CPPCHECK_ANALYSIS_REPORT_HTML="$HTML_REPORT_DIR/index.html"
+CPPCHECK_CHECKERS_REPORT="$CPPCHECK_REPORT_DIR/cppcheck_checkers_report"
+CPPCHECK_CHECKERS_REPORT_DST="$PROJECT_LOG_DIR/cppcheck_checkers_report"
+CPPCHECK_ANALYSIS_REPORT_XML="$CPPCHECK_REPORT_DIR/cppcheck_analysis_report.xml"
+CPPCHECK_ANALYSIS_REPORT_HTML="$CPPCHECK_REPORT_HTML_DIR/index.html"
+CPPCHECK_ANALYSIS_REPORT_HTML_DST="$PROJECT_LOG_DIR/cppcheck_report.html"
+COMPILE_COMMANDS_JSON="$PROJECT_BUILD_DIR/compile_commands.json"
 
+# Remove previous reports and build files
+rm -rf "$CPPCHECK_DIR/*" || { echo "Failed to remove $CPPCHECK_DIR/*"; exit 1; }
+rm -f "$CPPCHECK_CHECKERS_REPORT_DST" || { echo "Failed to remove $CPPCHECK_CHECKERS_REPORT_DST"; exit 1; }
+rm -f "$CPPCHECK_ANALYSIS_REPORT_HTML_DST" || { echo "Failed to remove $CPPCHECK_ANALYSIS_REPORT_HTML_DST"; exit 1; }
 
-# Create directories for Cppcheck build and reports
-mkdir -p "$CPPCHECK_DIR"
-mkdir -p "$REPORT_DIR"
-mkdir -p "$HTML_REPORT_DIR"
-mkdir -p "$PROJECT_LOG_DIR"
+# Create directories with checks
+create_dir() {
+    local dir=$1
+    mkdir -p "$dir" || { echo "Failed to create: $dir"; exit 1; }
+}
+
+create_dir "$CPPCHECK_BUILD_DIR"
+create_dir "$CPPCHECK_REPORT_DIR"
+create_dir "$CPPCHECK_REPORT_HTML_DIR"
+create_dir "$PROJECT_LOG_DIR"
 
 # Check the argument passed
 if [ "$1" == "output_to_file" ]; then
@@ -26,19 +43,38 @@ if [ "$1" == "output_to_file" ]; then
              --inconclusive \
              --suppress=missingIncludeSystem \
              --suppress=unmatchedSuppression \
-             --cppcheck-build-dir="$CPPCHECK_DIR" \
-             --project=build/compile_commands.json \
+             --cppcheck-build-dir="$CPPCHECK_BUILD_DIR" \
+             --project="$COMPILE_COMMANDS_JSON" \
              --platform=unix64 \
              --checkers-report="$CPPCHECK_CHECKERS_REPORT" \
              --xml \
-             --output-file="$CPPCHECK_ANALYSIS_REPORT_XML" \ 
-            -i external   
+             --output-file="$CPPCHECK_ANALYSIS_REPORT_XML" \
+             -i "$PROJECT_EXTERNAL_DIR"
+
+    if [ $? -ne 0 ]; then
+        echo "Cppcheck analysis failed."
+        exit 1
+    fi         
 
     # Generate HTML report from the XML report
-    cppcheck-htmlreport --file="$CPPCHECK_ANALYSIS_REPORT_XML" --report-dir="$HTML_REPORT_DIR"
+    cppcheck-htmlreport --file="$CPPCHECK_ANALYSIS_REPORT_XML" --report-dir="$CPPCHECK_REPORT_HTML_DIR"
+    
+    if [ $? -ne 0 ]; then
+        echo "Cppcheck HTML report generation failed."
+        exit 1
+    fi
 
-    cp "$CPPCHECK_ANALYSIS_REPORT_HTML" "$PROJECT_LOG_DIR"/cppcheck_report.html
-    cp "$CPPCHECK_CHECKERS_REPORT" "$PROJECT_LOG_DIR"
+    cp "$CPPCHECK_ANALYSIS_REPORT_HTML" "$CPPCHECK_ANALYSIS_REPORT_HTML_DST"
+    if [ $? -ne 0 ]; then
+        echo "Failed to copy HTML report to destination."
+        exit 1
+    fi
+
+    cp "$CPPCHECK_CHECKERS_REPORT" "$CPPCHECK_CHECKERS_REPORT_DST"
+    if [ $? -ne 0 ]; then
+        echo "Failed to copy checkers report to destination."
+        exit 1
+    fi
 
 elif [ "$1" == "output_to_terminal" ]; then
     echo "Running Cppcheck with terminal output"
@@ -46,11 +82,16 @@ elif [ "$1" == "output_to_terminal" ]; then
              --inconclusive \
              --suppress=missingIncludeSystem \
              --suppress=unmatchedSuppression \
-             --cppcheck-build-dir="$CPPCHECK_DIR" \
-             --project=build/compile_commands.json \
+             --cppcheck-build-dir="$CPPCHECK_BUILD_DIR" \
+             --project="$COMPILE_COMMANDS_JSON" \
              --platform=unix64 \
              --checkers-report="$CPPCHECK_CHECKERS_REPORT" \
-             -i external
+             -i "$PROJECT_EXTERNAL_DIR"
+
+    if [ $? -ne 0 ]; then
+        echo "Cppcheck analysis failed."
+        exit 1
+    fi           
 
 else
     echo "Invalid argument. Please use 'generate_report' or 'print_to_terminal'."
